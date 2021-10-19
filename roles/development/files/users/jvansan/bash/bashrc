@@ -1,0 +1,36 @@
+# Source bash aliases
+source ~/.bash/bash_aliases
+
+# Env
+export TERM=xterm-256color
+export EDITOR=vim
+
+# Show system information at login
+if [ -t 0 ]; then
+    if type -p "neofetch" > /dev/null; then
+        neofetch
+    else
+        echo "Warning: neofetch was called, but it's not installed."
+    fi
+fi
+
+# Don't add duplicate lines or lines beginning with a space to the history
+HISTCONTROL=ignoreboth
+
+# Set history format to include timestamps
+HISTTIMEFORMAT="%Y-%m-%d %T "
+
+# Correct simple errors while using cd
+shopt -s cdspell
+
+# Add /home/$USER/bin to $PATH
+case :$PATH: in
+	*:/home/$USER/bin:*) ;;
+	*) PATH=/home/$USER/bin:$PATH ;;
+esac
+
+# Add /home/$USER/.local/bin to $PATH
+case :$PATH: in
+	*:/home/$USER/.local/bin:*) ;;
+	*) PATH=/home/$USER/.local/bin:$PATH ;;
+esac

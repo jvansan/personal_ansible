@@ -1,0 +1,59 @@
+- name: users | jvansan | remove preinstalled clutter from home directory
+  file:
+    path: /home/jvansan/{{ item }}
+    state: absent
+  with_items:
+    - examples.desktop
+    - Desktop
+    - Documents
+    - Downloads
+    - Music
+    - Pictures
+    - Public
+    - Templates
+    - Videos
+
+- name: users | jvansan | create personal config directories
+  tags: dotfiles,dotfiles-jvansan
+  file:
+    path: /home/jvansan/{{ item.dir }}
+    state: directory
+    owner: jvansan
+    group: users
+    mode: 0700
+  with_items:
+    - { dir: .bash }
+    - { dir: .config }
+    - { dir: .config/autostart }
+    - { dir: .config/bpytop }
+    - { dir: .config/gtk-3.0 }
+    - { dir: .local }
+    - { dir: .local/share }
+    - { dir: .local/share/applications }
+    - { dir: bin }
+    - { dir: desktop }
+    - { dir: documents }
+    - { dir: downloads }
+    - { dir: projects }
+    - { dir: templates }
+
+- name: users | jvansan | copy dotfiles
+  tags: dotfiles,users,jvansan,tmux,users,vim,zsh
+  copy:
+    src: users/jvansan/{{ item.src }}
+    dest: /home/jvansan/{{ item.dest }}
+    owner: jvansan
+    group: users
+    mode: 0600
+  with_items:
+    - { src: 'bash/bash_aliases', dest: '.bash/bash_aliases' }
+    - { src: 'bash/bash_profile', dest: '.bash_profile' }
+      #- { src: 'bash/bash_prompt', dest: '.bash/bash_prompt' }
+      #- { src: 'bash/bash_functions', dest: '.bash/bash_functions' }
+    - { src: 'bash/bashrc', dest: '.bashrc' }
+    - { src: 'bash/profile', dest: '.profile' }
+    - { src: 'git/gitconfig', dest: '.gitconfig' }
+    - { src: 'inputrc', dest: '.inputrc' }
+    - { src: 'bpytop.conf', dest: '.config/bpytop/bpytop.conf' }
+      #- { src: 'vim/vimrc', dest: '.vimrc' }
+      #- { src: 'zsh/zshrc', dest: '.zshrc' }

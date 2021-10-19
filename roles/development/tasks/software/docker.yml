@@ -1,0 +1,32 @@
+- name: system setup | utils | docker
+  tags: packages,system,docker
+  become: true
+  package:
+    state: latest
+    name:
+      - docker
+
+- name: create docker group
+  become: true
+  tags: groups,docker
+  group:
+    name: docker
+    state: present
+
+- name: Add user to docker group
+  become: true
+  user:
+    name: "{{ ansible_user_id }}"
+    groups: docker
+    append: yes
+  tags:
+    - docker
+  when: docker is defined and docker == true
+
+- name: Install docker-compose
+  become: true
+  get_url: 
+    url : https://github.com/docker/compose/releases/download/{{docker_compose_version}}/docker-compose-Linux-x86_64
+    dest: /usr/local/bin/docker-compose
+    mode: '+x'
+  when: docker is defined and docker == true

@@ -1,0 +1,47 @@
+- name: system setup | utils
+  tags: packages,system
+  become: true
+  package:
+    state: latest
+    name:
+      - curl
+      - fish
+      - gvim
+      - httpie
+      - htop
+      - hunspell
+      - hunspell-en_us
+      - lm_sensors
+      - man-db
+      - man-pages
+      - neofetch
+      - net-tools
+      - nmap
+      - p7zip
+      - rsync
+      - tmux
+      - unrar
+      - unzip
+      - wget
+      - zip
+
+- name: system setup | gui
+  tags: packages,system,gui
+  become: true
+  package:
+    state: latest
+    name:
+      - firefox
+      - latte-dock
+      - libreoffice-fresh
+      - vlc
+
+- name: system setup | pip packages
+  tags: pip,python
+  become_user: jvansan
+  pip:
+    executable: /usr/bin/pip3
+    state: latest
+    name:
+      - bpytop
+      - pipenv

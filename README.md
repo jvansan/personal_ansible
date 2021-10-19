@@ -1,1 +1,1 @@
-# Arch Linux Ansible Config
+# Linux Ansible Config

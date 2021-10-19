@@ -1,0 +1,29 @@
+# aliases
+alias ..='cd ..'
+alias ...='cd ../../../'
+alias ....='cd ../../../../'
+alias back='cd $OLDPWD'
+alias grep='grep --color=auto'
+alias l.=' ls -lhFa --time-style=long-iso --color=auto'
+alias ll=' ls'
+alias ls=' ls -lhF --time-style=long-iso --color=auto'
+
+## get top process eating memory
+alias mem5='ps auxf | sort -nr -k 4 | head -5'
+alias mem10='ps auxf | sort -nr -k 4 | head -10'
+
+## get top process eating cpu ##
+alias cpu5='ps auxf | sort -nr -k 3 | head -5'
+alias cpu10='ps auxf | sort -nr -k 3 | head -10'
+
+## List largest directories (aka "ducks")
+alias dir5='du -cksh * | sort -hr | head -n 5'
+alias dir10='du -cksh * | sort -hr | head -n 10'
+
+# reload bash config
+alias reload="source ~/.bashrc"
+
+# Manage packages easier
+alias update='sudo pacman -Syyy'
+alias upgrade='sudo pacman -Syu'
+alias install='sudo pacman -S'
